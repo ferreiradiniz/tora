@@ -81,7 +81,6 @@ export default function Login() {
                     <br />
                     <ol>
                         <li><a href="/viaCep">ViaCep</a></li>
-                        <li><a href="/nominatim">Nominatim</a></li>
                     </ol>
                     <br />
                 </section>
