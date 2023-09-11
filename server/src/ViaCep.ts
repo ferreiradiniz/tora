@@ -1,7 +1,7 @@
 import axios from "axios";
 import https from 'https';
 
-type Endereco = {
+export type Endereco = {
     logradouro: string,
     complemento: string,
     bairro: string,
@@ -18,37 +18,29 @@ export default class ViaCep {
         const httpsAgent = new https.Agent({
             rejectUnauthorized: false,
         });
-
-        await axios({
+        const response = await axios({
             httpsAgent,
             url: `https://viacep.com.br/ws/${this.cep}/json/`,
             method: 'get',
             validateStatus: function (status) {
                 return status === 200;
             }
-        }).then(function (response) {
-
-            if (response.status === 200) {
-                const data = response.data;
-                return {
-                    logradouro: data.logradouro,
-                    complemento: data.complemento,
-                    bairro: data.bairro,
-                    cidade: data.localidade,
-                    uf: data.uf,
-                    codigoIBGE: data.ibge,
-                    ddd: data.ddd
-                };
-            };
-
-
-        }).catch(function (error) {
-            console.log(`CEP inválido - STATUS: ${error.response.status}`);
         });
-
-
-
-
+        if (response.status === 200) {
+            const data = response.data;
+            return {
+                logradouro: data.logradouro,
+                complemento: data.complemento,
+                bairro: data.bairro,
+                cidade: data.localidade,
+                uf: data.uf,
+                codigoIBGE: data.ibge,
+                ddd: data.ddd
+            };
+        }
+        else {
+            console.log(`CEP inválido - STATUS: ${response.status}`);
+        }
     };
 
 };

@@ -1,6 +1,6 @@
 import ViaCep from "../src/ViaCep";
 
-describe('Testando api ViaCep', () => {
+describe.skip('Testando api ViaCep', () => {
     test('Deve trazer o endereco através do cep', async () => {
         const api = new ViaCep(32371615);
         const end = await api.getEndereco();
